@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nmcp_token_tree" model="ir.ui.view">
+        <field name="name">nmcp.token.tree</field>
+        <field name="model">nmcp.token</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" decoration-muted="state != 'active'">
+                <field name="client_id"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="create_date" string="Connected On"/>
+                <field name="last_used"/>
+                <field name="refresh_expires"/>
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-danger="state == 'revoked'"/>
+                <button name="action_revoke" type="object" string="Disconnect" icon="fa-unlink" invisible="state != 'active'"
+                        confirm="The AI app loses access until someone signs in again. Continue?"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_nmcp_token_search" model="ir.ui.view">
+        <field name="name">nmcp.token.search</field>
+        <field name="model">nmcp.token</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="client_id"/>
+                <filter name="connected" string="Connected" domain="[('revoked', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_user" string="User" context="{'group_by': 'user_id'}"/>
+                    <filter name="by_client" string="AI App" context="{'group_by': 'client_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_nmcp_token" model="ir.actions.act_window">
+        <field name="name">Connections</field>
+        <field name="res_model">nmcp.token</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'search_default_connected': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Nobody is connected yet</p>
+            <p>Open "Connect an AI App" and add the connector in Claude or another AI app.</p>
+        </field>
+    </record>
+    <record id="action_nmcp_token_mine" model="ir.actions.act_window">
+        <field name="name">My Connections</field>
+        <field name="res_model">nmcp.token</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="context">{'search_default_connected': 1}</field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+.o_nmcp_setup {
+    .o_nmcp_url { font-size: 1.05rem; }
+    .o_nmcp_card {
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        padding: 12px 14px;
+        height: 100%;
+        h6 { font-weight: 700; margin-bottom: 8px; }
+        ol { padding-left: 18px; margin-bottom: 6px; }
+        pre { white-space: pre-wrap; background: $gray-100; padding: 6px 8px; border-radius: 4px; }
+    }
+}
+.nmcp_consent ul li { margin-bottom: 2px; }

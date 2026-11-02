@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.novator_mcp</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="AI Connector" string="AI Connector" name="novator_mcp" groups="novator_mcp.group_nmcp_manager">
+                    <block title="Connector" name="nmcp_connector">
+                        <setting string="Connector URL" help="Paste this address in Claude or another AI app.">
+                            <field name="nmcp_server_url" widget="CopyClipboardChar" readonly="1" class="w-100"/>
+                            <div class="mt-2">
+                                <button name="%(novator_mcp.action_nmcp_setup)d" type="action" string="How to connect" icon="arrow_forward" class="btn-link"/>
+                            </div>
+                        </setting>
+                        <setting string="Who can connect" help="Every internal user, or only the users you add to AI Connector / User.">
+                            <field name="nmcp_all_users"/>
+                        </setting>
+                    </block>
+                    <block title="Sign-in" name="nmcp_signin">
+                        <setting string="Allowed AI apps" help="Claude only: other apps cannot sign in.">
+                            <field name="nmcp_clients_policy"/>
+                        </setting>
+                        <setting help="Let AI apps like Claude register on their own the first time someone connects.">
+                            <field name="nmcp_allow_dcr"/>
+                        </setting>
+                        <setting help="Apps that identify themselves with a document on their website (newer sign-in standard).">
+                            <field name="nmcp_allow_cimd"/>
+                        </setting>
+                        <setting help="Scripts and agents can use a user's Odoo API key instead of signing in.">
+                            <field name="nmcp_allow_api_keys"/>
+                        </setting>
+                        <setting string="Sessions" help="How long an AI app stays connected without signing in again.">
+                            <div class="row mt-2">
+                                <label for="nmcp_refresh_days" class="col-lg-6 o_light_label"/>
+                                <field name="nmcp_refresh_days" class="col-lg-2"/>
+                            </div>
+                            <div class="row">
+                                <label for="nmcp_access_hours" class="col-lg-6 o_light_label"/>
+                                <field name="nmcp_access_hours" class="col-lg-2"/>
+                            </div>
+                        </setting>
+                        <setting string="Activity log" help="Every tool the AI uses is logged.">
+                            <div class="row mt-2">
+                                <label for="nmcp_log_days" class="col-lg-6 o_light_label"/>
+                                <field name="nmcp_log_days" class="col-lg-2"/>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_nmcp_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'novator_mcp', 'bin_size': False}</field>
+    </record>
+</odoo>

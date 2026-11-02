@@ -1,0 +1,12 @@
+id,name,model_id,group_id/id,operation,domain
+access_nmcp_tool_user,nmcp.tool user,nmcp.tool,group_nmcp_user,r,
+access_nmcp_tool_manager,nmcp.tool manager,nmcp.tool,group_nmcp_manager,ru,
+access_nmcp_client_user,nmcp.client user,nmcp.client,group_nmcp_user,r,
+access_nmcp_client_manager,nmcp.client manager,nmcp.client,group_nmcp_manager,crud,
+access_nmcp_token_user,nmcp.token own,nmcp.token,group_nmcp_user,ru,"[('user_id', '=', user.id)]"
+access_nmcp_token_manager,nmcp.token manager,nmcp.token,group_nmcp_manager,rud,
+access_nmcp_log_user,nmcp.log own,nmcp.log,group_nmcp_user,r,"[('user_id', '=', user.id)]"
+access_nmcp_log_manager,nmcp.log manager,nmcp.log,group_nmcp_manager,rd,
+access_nmcp_setup_internal,nmcp.setup internal,nmcp.setup,base.group_user,cru,
+access_nmcp_secret_wizard,nmcp.secret.wizard,nmcp.secret.wizard,group_nmcp_manager,cru,
+access_nmcp_code_system,nmcp.code system,nmcp.code,base.group_system,r,

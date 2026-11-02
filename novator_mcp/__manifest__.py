@@ -2,12 +2,12 @@
     'name': 'AI Connector for Claude & MCP',
     'summary': 'Connect Claude, ChatGPT and other AI apps to Odoo with a secure MCP server. Sign in with Odoo, '
                'each user keeps their own access rights.',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.1',
     'category': 'Productivity',
     'author': 'Novator Technologies',
     'website': 'https://www.novator.co',
     'support': 'support@novator.co',
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'depends': ['base_setup', 'web'],
     'external_dependencies': {'python': ['requests']},
     'data': [

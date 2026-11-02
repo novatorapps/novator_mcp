@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="oauth_consent" name="AI Connector: allow access">
+        <t t-call="web.login_layout">
+            <div class="nmcp_consent">
+                <h4 class="mb-3">Connect <strong t-out="client.name"/> to Odoo?</h4>
+                <p class="text-muted mb-2">
+                    <t t-out="client.name"/> will work in <strong t-out="company.name"/> as
+                    <strong t-out="user.name"/>, with your access rights. It can:
+                </p>
+                <ul class="mb-3 ps-3">
+                    <li t-if="tools.filtered(lambda t: t.kind == 'read')">Read the documents you can read</li>
+                    <li t-if="tools.filtered(lambda t: t.kind == 'write')">Create and change documents you can change, and run buttons</li>
+                    <li t-if="tools.filtered(lambda t: t.kind == 'delete')">Delete documents you can delete</li>
+                </ul>
+                <p class="small text-muted mb-3">
+                    Passwords and keys stay hidden. You can disconnect at any time in AI Connector &gt; My Connections.
+                    Returns to <code t-out="redirect_host"/>.
+                </p>
+                <form method="post" action="/mcp/oauth/authorize">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-foreach="params.items()" t-as="item">
+                        <input type="hidden" t-att-name="item[0]" t-att-value="item[1]"/>
+                    </t>
+                    <div class="d-flex gap-2">
+                        <button type="submit" name="decision" value="allow" class="btn btn-primary flex-grow-1">Allow</button>
+                        <button type="submit" name="decision" value="deny" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="oauth_error" name="AI Connector: cannot connect">
+        <t t-call="web.login_layout">
+            <h4 class="mb-3">Cannot connect this AI app</h4>
+            <p class="alert alert-warning" role="alert" t-out="message"/>
+            <a href="/web" class="btn btn-secondary">Back to Odoo</a>
+        </t>
+    </template>
+</odoo>

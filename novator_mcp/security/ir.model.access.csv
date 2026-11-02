@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_nmcp_tool_user,nmcp.tool user,model_nmcp_tool,group_nmcp_user,1,0,0,0
+access_nmcp_tool_manager,nmcp.tool manager,model_nmcp_tool,group_nmcp_manager,1,1,0,0
+access_nmcp_client_user,nmcp.client user,model_nmcp_client,group_nmcp_user,1,0,0,0
+access_nmcp_client_manager,nmcp.client manager,model_nmcp_client,group_nmcp_manager,1,1,1,1
+access_nmcp_token_user,nmcp.token user,model_nmcp_token,group_nmcp_user,1,1,0,0
+access_nmcp_token_manager,nmcp.token manager,model_nmcp_token,group_nmcp_manager,1,1,0,1
+access_nmcp_log_user,nmcp.log user,model_nmcp_log,group_nmcp_user,1,0,0,0
+access_nmcp_log_manager,nmcp.log manager,model_nmcp_log,group_nmcp_manager,1,0,0,1
+access_nmcp_setup_internal,nmcp.setup internal,model_nmcp_setup,base.group_user,1,1,1,0
+access_nmcp_secret_wizard,nmcp.secret.wizard,model_nmcp_secret_wizard,group_nmcp_manager,1,1,1,0
+access_nmcp_code_system,nmcp.code system,model_nmcp_code,base.group_system,1,0,0,0

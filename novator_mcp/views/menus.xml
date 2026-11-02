@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_nmcp_root" name="AI Connector" web_icon="novator_mcp,static/description/icon.png"
+              groups="novator_mcp.group_nmcp_user" sequence="95"/>
+    <menuitem id="menu_nmcp_setup" name="Connect an AI App" parent="menu_nmcp_root" action="action_nmcp_setup" sequence="5"/>
+    <menuitem id="menu_nmcp_mine" name="My Connections" parent="menu_nmcp_root" action="action_nmcp_token_mine" sequence="10"/>
+    <menuitem id="menu_nmcp_activity" name="Activity" parent="menu_nmcp_root" action="action_nmcp_log" sequence="20"/>
+    <menuitem id="menu_nmcp_config" name="Configuration" parent="menu_nmcp_root" sequence="90" groups="novator_mcp.group_nmcp_manager"/>
+    <menuitem id="menu_nmcp_settings" name="Settings" parent="menu_nmcp_config" action="action_nmcp_settings" sequence="5" groups="base.group_system"/>
+    <menuitem id="menu_nmcp_tokens" name="Connections" parent="menu_nmcp_config" action="action_nmcp_token" sequence="10"/>
+    <menuitem id="menu_nmcp_clients" name="AI Apps" parent="menu_nmcp_config" action="action_nmcp_client" sequence="20"/>
+    <menuitem id="menu_nmcp_tools" name="AI Tools" parent="menu_nmcp_config" action="action_nmcp_tool" sequence="30"/>
+</odoo>

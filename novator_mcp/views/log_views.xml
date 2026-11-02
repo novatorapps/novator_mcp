@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nmcp_log_tree" model="ir.ui.view">
+        <field name="name">nmcp.log.tree</field>
+        <field name="model">nmcp.log</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" decoration-danger="state == 'error'" decoration-warning="state == 'denied'">
+                <field name="create_date" string="When"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="client_id" optional="show"/>
+                <field name="tool_title"/>
+                <field name="model"/>
+                <field name="res_ids" optional="show"/>
+                <field name="state" widget="badge" decoration-success="state == 'done'" decoration-danger="state == 'error'" decoration-warning="state == 'denied'"/>
+                <field name="duration" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_nmcp_log_form" model="ir.ui.view">
+        <field name="name">nmcp.log.form</field>
+        <field name="model">nmcp.log</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <header>
+                    <button name="action_open_records" type="object" string="Open Records" invisible="not res_ids"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="create_date" string="When"/>
+                            <field name="user_id"/>
+                            <field name="client_id"/>
+                            <field name="tool_title"/>
+                        </group>
+                        <group>
+                            <field name="model"/>
+                            <field name="res_ids"/>
+                            <field name="state"/>
+                            <field name="duration"/>
+                        </group>
+                    </group>
+                    <label for="arguments"/>
+                    <field name="arguments" class="font-monospace"/>
+                    <label for="error" invisible="not error"/>
+                    <field name="error" invisible="not error"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_nmcp_log_search" model="ir.ui.view">
+        <field name="name">nmcp.log.search</field>
+        <field name="model">nmcp.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="model"/>
+                <field name="tool"/>
+                <filter name="changes" string="Changes" domain="[('tool', 'in', ('odoo_create_record', 'odoo_update_records', 'odoo_call_method', 'odoo_post_note', 'odoo_delete_records'))]"/>
+                <filter name="errors" string="Errors and refusals" domain="[('state', '!=', 'done')]"/>
+                <filter name="today" string="Today" domain="[('create_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_user" string="User" context="{'group_by': 'user_id'}"/>
+                    <filter name="by_tool" string="Action" context="{'group_by': 'tool'}"/>
+                    <filter name="by_model" string="Document Type" context="{'group_by': 'model'}"/>
+                    <filter name="by_day" string="Day" context="{'group_by': 'create_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_nmcp_log" model="ir.actions.act_window">
+        <field name="name">AI Activity</field>
+        <field name="res_model">nmcp.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No AI activity yet</p>
+            <p>Everything a connected AI app reads or changes is listed here.</p>
+        </field>
+    </record>
+</odoo>

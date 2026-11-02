@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="cron_nmcp_cleanup" model="ir.cron">
+        <field name="name">AI Connector: clean up old sign-ins and activity</field>
+        <field name="model_id" ref="model_nmcp_token"/>
+        <field name="state">code</field>
+        <field name="code">model._gc(); env['nmcp.log']._gc()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>

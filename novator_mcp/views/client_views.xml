@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nmcp_client_tree" model="ir.ui.view">
+        <field name="name">nmcp.client.tree</field>
+        <field name="model">nmcp.client</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="not active">
+                <field name="name"/>
+                <field name="kind"/>
+                <field name="token_count"/>
+                <field name="last_used"/>
+                <field name="create_date" string="Added"/>
+                <field name="active" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_nmcp_client_form" model="ir.ui.view">
+        <field name="name">nmcp.client.form</field>
+        <field name="model">nmcp.client</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_new_secret" type="object" string="New Client Secret" invisible="kind != 'manual'"/>
+                    <button name="action_revoke_all" type="object" string="Disconnect Everyone" invisible="not token_count"
+                            confirm="Everyone signed in with this app is disconnected. Continue?"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Blocked" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title"><h1><field name="name" placeholder="e.g. Claude"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="client_id" readonly="1"/>
+                            <field name="kind"/>
+                            <field name="confidential"/>
+                            <field name="client_uri" widget="url"/>
+                        </group>
+                        <group>
+                            <field name="token_count"/>
+                            <field name="last_used"/>
+                            <field name="metadata_fetched" invisible="kind != 'cimd'"/>
+                            <field name="active" string="Allowed"/>
+                        </group>
+                    </group>
+                    <label for="redirect_uris"/>
+                    <field name="redirect_uris" placeholder="https://claude.ai/api/mcp/auth_callback" readonly="kind != 'manual'"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_nmcp_secret_wizard" model="ir.ui.view">
+        <field name="name">nmcp.secret.wizard.form</field>
+        <field name="model">nmcp.secret.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="alert alert-warning" role="alert">Copy the secret now. For your security it is shown only once.</div>
+                <group>
+                    <field name="client_id"/>
+                    <field name="secret" widget="CopyClipboardChar"/>
+                </group>
+                <footer><button string="Done" special="cancel" class="btn-primary"/></footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_nmcp_client" model="ir.actions.act_window">
+        <field name="name">AI Apps</field>
+        <field name="res_model">nmcp.client</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'active_test': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No AI app connected yet</p>
+            <p>Apps like Claude register here on their own the first time someone connects. Block an app to stop everyone using it.</p>
+        </field>
+    </record>
+</odoo>

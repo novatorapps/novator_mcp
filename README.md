@@ -26,4 +26,4 @@ Your Odoo must be reachable over https. With several databases on one server, se
 
 ## License
 
-GNU Affero General Public License v3 (AGPL-3). (c) Novator Technologies.
+GNU Lesser General Public License v3 (LGPL-3). (c) Novator Technologies.

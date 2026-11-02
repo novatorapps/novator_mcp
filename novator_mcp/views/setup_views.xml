@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nmcp_setup_form" model="ir.ui.view">
+        <field name="name">nmcp.setup.form</field>
+        <field name="model">nmcp.setup</field>
+        <field name="arch" type="xml">
+            <form string="Connect an AI App" class="o_nmcp_setup">
+                <field name="can_connect" invisible="1"/>
+                <field name="pro_installed" invisible="1"/>
+                <field name="api_keys_allowed" invisible="1"/>
+                <div class="alert alert-warning" role="alert" invisible="can_connect">
+                    Your user is not allowed to connect AI apps yet. Ask your administrator to add you to
+                    "AI Connector / User" (or to allow every internal user in Settings).
+                </div>
+                <div class="o_nmcp_url">
+                    <label for="server_url" string="1. Copy the connector URL"/>
+                    <field name="server_url" widget="CopyClipboardChar" readonly="1"/>
+                </div>
+                <h5 class="mt-4">2. Add it to your AI app</h5>
+                <div class="row o_nmcp_apps">
+                    <div class="col-lg-6 mb-3">
+                        <div class="o_nmcp_card">
+                            <h6>Claude (web, desktop and mobile)</h6>
+                            <ol>
+                                <li>Settings &gt; Connectors &gt; <b>Add custom connector</b>.</li>
+                                <li>Name it "Odoo", paste the URL, click <b>Add</b>, then <b>Connect</b>.</li>
+                                <li>Sign in to Odoo if asked and click <b>Allow</b>.</li>
+                            </ol>
+                            <p class="small text-muted mb-0">Once added on the web or desktop, the connector also works in the Claude mobile app.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="o_nmcp_card">
+                            <h6>Claude Code</h6>
+                            <p class="mb-1">Run in a terminal, then type <code>/mcp</code> in Claude Code and sign in:</p>
+                            <pre class="mb-0">claude mcp add --transport http odoo &lt;connector URL&gt;</pre>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="o_nmcp_card">
+                            <h6>ChatGPT and other AI apps</h6>
+                            <p class="mb-0">Add a remote MCP server (also called connector or app) with the URL above and choose OAuth.
+                            The app opens Odoo so you can sign in and allow access.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3" invisible="not api_keys_allowed">
+                        <div class="o_nmcp_card">
+                            <h6>Scripts and agents without a sign-in screen</h6>
+                            <p class="mb-0">Create an API key in your preferences (Account Security &gt; New API Key) and send it as
+                            <code>Authorization: Bearer &lt;key&gt;</code>. The key works with your access rights.</p>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="mt-2">3. Ask away</h5>
+                <p class="text-muted">"Which quotations over 5,000 are waiting for the customer?", "Sales by salesperson this quarter",
+                    "Create a customer from this business card", "Confirm order S00042".</p>
+                <div class="alert alert-info d-flex align-items-center" role="status" invisible="pro_installed">
+                    <div class="flex-grow-1">
+                        <b>AI Connector Pro</b>: changes wait for your approval, every change can be undone,
+                        fields and tools per team, daily limits, and ready-made workflows.
+                    </div>
+                    <button name="action_pro" type="object" string="See AI Connector Pro" class="ms-3 btn-primary"/>
+                </div>
+                <footer>
+                    <button name="action_my_connections" type="object" string="My Connections" class="btn-secondary"/>
+                    <button string="Close" special="cancel" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_nmcp_setup" model="ir.actions.act_window">
+        <field name="name">Connect an AI App</field>
+        <field name="res_model">nmcp.setup</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
